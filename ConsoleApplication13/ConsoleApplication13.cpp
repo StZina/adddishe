@@ -89,7 +89,7 @@ void game() {
                 }
 
             }
-
+            //
             if (!found) {
                 cout << "Такого портала нет! Попробуйте снова." << endl;
                 continue;
