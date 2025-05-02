@@ -51,16 +51,17 @@ void InitGame() {
     room[0].item_l.push_back(item_::hemlet);
 
     room[1].loc_name = "Бухгалтерия";
-    room[1].p.push_back({"44", 3});
+    room[1].p.push_back({ "44", 3 });
     room[1].p.push_back({ "Завод", 4 });
 
     room[2].loc_name = "Тубзик";
     room[3].loc_name = "Пыточная";
     room[4].loc_name = "Отдел производства";
 
-    player.item_p.push_back(item_::axe);
-    player.item_p.push_back(item_::sword);
-
+  
+    room[2].item_l.push_back(item_::sword);
+    room[3].item_l.push_back(item_::hemlet);
+    room[4].item_l.push_back(item_::axe);
 }
 
 void game() {
@@ -94,24 +95,73 @@ void game() {
                 cout << "Такого портала нет! Попробуйте снова." << endl;
                 continue;
             }
-        }
-        
-        if (chouse == "item") {
-
-            for (int i = 0; i < player.item_p.size(); i++) {
-                cout << "Predmet: " << items_item[(int)player.item_p[i]] << endl;
-            }
 
         }
-        
-        if (chouse == "seek") {
-            for (int i = 0; i < room[player.current_loc].item_l.size(); i++) {
-                cout << "Predmet " << room[player.current_loc].item_l[i] << endl;
+       
+        if (chouse == "pickup") {
+            // Список предметов на текущей локации
+            if (room[player.current_loc].item_l.empty()) {
+                cout << "На этой локации нет предметов." << endl;
+            }
+            else {
+                cout << "Какие предметы находятся здесь:" << endl;
+                for (int i = 0; i < room[player.current_loc].item_l.size(); i++) {
+                    cout << i + 1 << ". " << items_item[(int)room[player.current_loc].item_l[i]] << endl;
+                }
+
+                // Просьба ввести номер предмета для подбора
+                cout << "Укажите номер предмета для подъёма (или 'no' для отказа): ";
+                string answer;
+                cin >> answer;
+
+                if (answer != "no") {
+                    int index = stoi(answer) - 1; // Получение индекса
+                    if (index >= 0 && index < room[player.current_loc].item_l.size()) {
+                        // Поднимаем указанный предмет
+                        player.item_p.push_back(room[player.current_loc].item_l[index]);
+                        room[player.current_loc].item_l.erase(room[player.current_loc].item_l.begin() + index);
+                        cout << "Вы подняли предмет " << items_item[(int)player.item_p.back()] << "." << endl;
+                    }
+                    else {
+                        cout << "Неверный выбор. Попробуйте ещё раз." << endl;
+                    }
+                }
             }
         }
+
+        if (chouse == "drop") {
+            // Список предметов игрока
+            if (player.item_p.empty()) {
+                cout << "У Вас нет предметов." << endl;
+            }
+            else {
+                cout << "Список ваших предметов:" << endl;
+                for (int i = 0; i < player.item_p.size(); i++) {
+                    cout << i + 1 << ". " << items_item[(int)player.item_p[i]] << endl;
+                }
+
+                // Просьба ввести номер предмета для сброса
+                cout << "Укажите номер предмета для сброса (или 'no' для отмены): ";
+                string answer;
+                cin >> answer;
+
+                if (answer != "no") {
+                    int index = stoi(answer) - 1; // Получение индекса
+                    if (index >= 0 && index < player.item_p.size()) {
+                        // Сбрасываем указанный предмет обратно в текущую комнату
+                        room[player.current_loc].item_l.push_back(player.item_p[index]);
+                        player.item_p.erase(player.item_p.begin() + index);
+                        cout << "Вы бросили предмет " << items_item[(int)room[player.current_loc].item_l.back()] << "." << endl;
+                    }
+                    else {
+                        cout << "Неверный выбор. Попробуйте ещё раз." << endl;
+                    }
+                }
+            }
+        }
+
     }
 }
-
 int main() {
     setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
@@ -120,5 +170,17 @@ int main() {
 
 }
 
+/*if (chouse == "item") {
 
+    for (int i = 0; i < player.item_p.size(); i++) {
+        cout << "Predmet: " << items_item[(int)player.item_p[i]] << endl;
+    }
 
+}
+
+if (chouse == "seek") {
+    for (int i = 0; i < room[player.current_loc].item_l.size(); i++) {
+        cout << "Predmet " << room[player.current_loc].item_l[i] << endl;
+    }
+}
+}*/
