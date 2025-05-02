@@ -88,7 +88,7 @@ void game() {
 
             string chouse;
             cin >> chouse;
-
+            //
             if (chouse == "p")   cout << room[player.current_loc].dis << endl;
 
             if (chouse == "go") {
