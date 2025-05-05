@@ -84,12 +84,15 @@ void game() {
 
     while (true) {
 
-            cout << "Вы находитесь в " << room[player.current_loc].loc_name << endl;
+        text("Ky ky\n", 100);
+        text("Вы находитесь в ", 100);
+        cout << room[player.current_loc].loc_name << endl;
+        text(room[player.current_loc].dis, 100);
 
             string chouse;
             cin >> chouse;
             //
-            if (chouse == "p")   cout << room[player.current_loc].dis << endl;
+            /*if (chouse == "p")   cout << room[player.current_loc].dis << endl;*/
 
             if (chouse == "go") {
 
