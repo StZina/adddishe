@@ -59,19 +59,19 @@ info player;
 
 void InitGame() {
 
-    //void diolog(); {
-    //    if (player.current_loc != 4) {
-    //        cout << "Кек";
+    void diolog(); {
+        if (player.current_loc != 4) {
+            cout << "Кек";
 
-    //    }
-    //    if (player.current_loc == 0 && find(player.item_p.begin(), player.item_p.end(), item_::notebook) != player.item_p.end()) {
-    //        auto it = remove_if(player.item_p.begin(), player.item_p.end(), [](const item_& x) { return x == item_::notebook; });
-    //        player.item_p.erase(it, player.item_p.end());
+        }
+        if (player.current_loc == 0 && find(player.item_p.begin(), player.item_p.end(), item_::notebook) != player.item_p.end()) {
+            auto it = remove_if(player.item_p.begin(), player.item_p.end(), [](const item_& x) { return x == item_::notebook; });
+            player.item_p.erase(it, player.item_p.end());
 
-    //        // Реакция девушки на ресепшене
-    //        text("\nДевушка на ресепшене благодарно улыбнулась и сказала: \"Спасибо!\"\n", 100);
-    //    }
-    //}
+            // Реакция девушки на ресепшене
+            text("\nДевушка на ресепшене благодарно улыбнулась и сказала: \"Спасибо!\"\n", 100);
+        }
+    }
 
     room[0].loc_name = "Ресепшен";
     room[0].dis = "Сегодня на ресепшене меня встретила незнакомка с холодным взглядом.\nБез лишних слов она резко ткнула пальцем в журнал и отрывисто приказала : - Распишись.\nИ потом загляните в бухгалтерию для оформления на работу, кабинет шестьдесят девять. Иди.\n";
